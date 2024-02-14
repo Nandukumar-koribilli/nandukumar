@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>parallax scrolling website/nandu </title>
+        <link rel="stylesheet" type="text/css" href="style.css"
+    </head>
+    <body>
+        <header>
+            <a href="#" class="logo">BY Nandu</a>
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Work</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </header>
+        <section>
+            <img src="stars.png" id="stars">
+            <img src="moon.png" id="moon">
+            <img src="mountains_behind.png" id="mountains_behind">
+            <h2 id="text">Nandu's Moon </h2>
+            <a href="#sec" id="btn">Explore</a>
+            <img src="mountains_front.png" id="mountains_front">
+        </section>
+        <div class="sec" id="sec">
+            <h2>parallax scrolling effects by nandu</h2>
+            <p>
+                The Moon is Earth's only natural satellite. Together with Earth it forms the Earth–Moon satellite system. It is about one-quarter of Earth in diameter (comparable to the width of Australia).[16] In the Solar System it is the fifth largest satellite, larger than any of the known dwarf planets and the largest (and most massive) satellite of a planet relative to the planet.[f] The Moon is a planetary-mass object that formed a differentiated rocky body, making it a satellite planet under the geophysical definitions of the term.[17] It lacks any significant atmosphere, hydrosphere, or magnetic field. Its surface gravity is about one-sixth of Earth's (0.1654 g). Jupiter's moon Io is the only satellite in the Solar System known to have a higher surface gravity and density.<br><br>
+                Orbiting Earth at an average distance of 384,400 km (238,900 mi), or about 30 times Earth's diameter, its gravitational influence very slowly lengthens Earth's day and is the main driver of Earth's tides. The Moon's orbit around Earth has a sidereal period of 27.3 days. During each synodic period of 29.5 days, the amount of visible surface illuminated by the Sun varies from none up to 100%, resulting in lunar phases that form the basis for the months of a lunar calendar. The Moon is tidally locked to Earth, which means that the length of a full rotation of the Moon on its own axis causes its same side (the near side) to always face Earth, and the somewhat longer lunar day is the same as the synodic period. However, 59% of the total lunar surface can be seen from Earth through shifts in perspective due to libration.<br><br>
+                The most widely accepted origin explanation posits that the Moon formed 4.51 billion years ago, not long after Earth, out of the debris from a giant impact between the planet and a hypothesized Mars-sized body called Theia. It then receded to a wider orbit because of tidal interaction with the Earth. The near side of the Moon is marked by dark volcanic maria ("seas"), which fill the spaces between bright ancient crustal highlands and prominent impact craters. Most of the large impact basins and mare surfaces were in place by the end of the Imbrian period, some three billion years ago. The lunar surface is relatively non-reflective, with a reflectance just slightly brighter than that of worn asphalt. However, because it has a large angular diameter, the full moon is the brightest celestial object in the night sky. The Moon's apparent size is nearly the same as that of the Sun, allowing it to cover the Sun almost completely during a total solar eclipse.<br><br>
+                Both the Moon's prominence in Earth's sky and its regular cycle of phases have provided cultural references and influences for human societies throughout history. Such influences can be found in language, calendar systems, art, and mythology. The first artificial object to reach the Moon was the Soviet Union's Luna 2 uncrewed spacecraft in 1959; this was followed by the first successful soft landing by Luna 9 in 1966. The only human lunar missions to date have been those of the United States' Apollo program, which landed twelve men on the surface between 1969 and 1972. These and later uncrewed missions returned lunar rocks that have been used to develop a detailed geological understanding of the Moon's origins, internal structure, and subsequent history.<br><br>
+                The Moon was the first place beyond Earth humans tried to reach as the Space Age began in the late 1950s. More than 100 robotic explorers from more than half a dozen nations have since sent spacecraft to the Moon. Nine crewed missions have flown to the Moon and back.<br><br>
+               Artemis logo
+               With Earth Blue, Rocket Red and Lunar Silver for colors, every part of the identity has meaning. Credit: NASA
+               The former Soviet Union logged the first successes with its Luna program, starting with Luna 1 in 1959. NASA followed with a series of robotic Ranger and Surveyor spacecraft that performed increasingly complex tasks that made it possible for the first human beings to walk on the Moon in 1969.
+               Twenty-four humans have traveled from the Earth to the Moon. Twelve walked on its surface. The last human visited the lunar surface in 1972.
+               "That's one small step for a man. One giant leap for mankind.<br></br>"- Neil Armstrong<br></br>
+               Now NASA is gearing up to set up a permanent lunar presence on the Moon. The Artemis program will send the first woman and the next man to the Moon and develop a sustainable human presence on the Moon and set the stage for further human exploration of Mars.
+               The program takes its name from the twin sister of Apollo and the goddess of the Moon in Greek mythology. Artemis 1, formerly Exploration Mission-1, is the first in a series of increasingly complex missions that will enable human exploration of the Moon and Mars.
+               <br></br>
+                               **************************this is my first project hope you like it ****************************
+             </p>
+        </div> 
+        
+        <script>
+            let stars = document.getElementById('stars');
+            let moon = document.getElementById('moon');
+            let mountains_behind = document.getElementById('mountains_behind');
+            let text = document.getElementById('text');
+            let btn = document.getElementById('btn');
+            let mountains_front = document.getElementById('mountains_front');
+            let header = document.querySelector('header');
+
+            window.addEventListener('scroll', function(){
+              let Value = window.scrollY;
+              stars.style.left = Value * 0.25 + 'px';
+              moon.style.top = Value * 1.05 + 'px';
+              mountains_behind.style.top = Value * 0.5 + 'px';
+              mountains_front.style.top = Value * 0 + 'px';
+              text.style.marginRight =Value * 4 + 'px';
+              text.style.marginTop =Value * 1.5 + 'px';
+              btn.style.marginTop =Value * 1.5 + 'px';
+              header.style.marginTop =Value * 0.5 + 'px';
+            })
+        </script>
+    </body>
+</html>
