@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shop Marvel Avengers merchandise - mobile pouches, shirts, and more!">
+    <meta property="og:title" content="Avengers Store">
+    <meta property="og:description" content="Everything Marvel - from mobile pouches to superhero shirts!">
+    <meta property="og:image" content="images/avengers-logo.png">
+    <title>MARVEL STORE</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header role="banner">
+        <div class="logo">
+            <img src="images/avengers-logo.png" alt="Avengers Store Logo" width="50" height="50">
+        </div>
+        <nav role="navigation">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="header-right">
+            <form class="search" role="search">
+                <input type="search" placeholder="Search for your hero..." aria-label="Search products">
+                <button type="submit">Search</button>
+            </form>
+            <button id="dark-mode-toggle" aria-label="Toggle dark mode">
+                <img src="images/sun.png" alt="Switch to dark mode" id="mode-icon" width="24" height="24">
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h1>Welcome to the Marvel Store </h1>
+            <h1>created by NANDU</h1>
+            <p>Everything Marvel - from mobile pouches to superhero shirts!</p>
+        </section>
+
+        <section id="products">
+            <h2>Our Products</h2>
+            <div class="product-grid">
+                <div class="product-item" data-category="accessories">
+                    <img src="images/iron-man-pouch.jpg" alt="Iron Man Mobile Pouch" loading="lazy" width="200" height="200">
+                    <h3>Iron Man Mobile Pouch</h3>
+                    <p class="price">$19.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-item" data-category="accessories">
+                    <img src="images/captain-america-keychain.jpg" alt="Captain America Keychain" loading="lazy" width="200" height="200">
+                    <h3>Captain America Keychain</h3>
+                    <p class="price">$10.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-item" data-category="clothing">
+                    <img src="images/wanda-shirt.jpg" alt="Black Widow T-Shirt" loading="lazy" width="200" height="200">
+                    <h3>Black Widow T-Shirt</h3>
+                    <p class="price">$24.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-item" data-category="home">
+                    <img src="images/hulk-smash-mug.jpg" alt="Hulk Smash Mug" loading="lazy" width="200" height="200">
+                    <h3>Hulk Smash Mug</h3>
+                    <p class="price">$15.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-item" data-category="collectibles">
+                    <img src="images/thor-hammer-replica.jpg" alt="Thor's Hammer Replica" loading="lazy" width="200" height="200">
+                    <h3>Thor's Hammer Replica</h3>
+                    <p class="price">$49.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-item" data-category="accessories">
+                    <img src="images/spiderman-backpack.jpg" alt="Spider-Man Backpack" loading="lazy" width="200" height="200">
+                    <h3>Spider-Man Backpack</h3>
+                    <p class="price">$39.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-item" data-category="collectibles">
+                    <img src="images/loki-helmet.jpg" alt="Loki Helmet" loading="lazy" width="200" height="200">
+                    <h3>Loki Helmet</h3>
+                    <p class="price">$79.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-item" data-category="decor">
+                    <img src="images/scarlet-witch-poster.jpg" alt="Scarlet Witch Poster" loading="lazy" width="200" height="200">
+                    <h3>Scarlet Witch Poster</h3>
+                    <p class="price">$12.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Marvel Store. All rights reserved for Nandu Kumar .</p>
+    </footer>
+
+    <script>
+        const toggleButton = document.getElementById('dark-mode-toggle');
+        const modeIcon = document.getElementById('mode-icon');
+        const body = document.body;
+
+        toggleButton.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                modeIcon.src = 'images/moon.png';
+                modeIcon.alt = 'Switch to light mode';
+            } else {
+                modeIcon.src = 'images/sun.png';
+                modeIcon.alt = 'Switch to dark mode';
+            }
+        });
+    </script>
+</body>
+</html>
