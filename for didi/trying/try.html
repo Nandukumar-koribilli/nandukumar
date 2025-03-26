@@ -32,14 +32,20 @@
             100% { opacity: 0.8; }
         }
         .card-container {
-            width: 80vw;
-            max-width: 600px;
-            height: 60vh;
-            max-height: 400px;
-            position: relative;
-            perspective: 1000px;
-            z-index: 10;
-        }
+        width: 300px; /* Adjust width for portrait */
+        height: 500px; /* Adjust height for portrait */
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        position: relative;
+        z-index: 2;
+    }
+        
         .card {
             width: 100%;
             height: 100%;
@@ -128,19 +134,29 @@
             height: 50px;
             border-radius: 50%;
             animation: float 5s ease-in infinite;
-            z-index: 1;
+            z-index: 3;
             opacity: 0;
         }
+       
         .balloon:before {
-            content: "";
-            position: absolute;
-            width: 1px;
-            height: 100px;
-            background-color: rgba(255,255,255,0.5);
-            bottom: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+        content: "";
+        position: absolute;
+        width: 1px;
+        height: 100px;
+        background-color: black; /* Thread color */
+        bottom: -100px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: shake 1.3s infinite; /* Add shake animation */
+    }
+
+    @keyframes shake {
+        0% { transform: translateX(-50%) rotate(0deg); }
+        25% { transform: translateX(-48%) rotate(-2deg); }
+        50% { transform: translateX(-50%) rotate(0deg); }
+        75% { transform: translateX(-52%) rotate(2deg); }
+        100% { transform: translateX(-50%) rotate(0deg); }
+    }
         @keyframes float {
             0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
             10% { opacity: 1; }
@@ -277,6 +293,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
     <script>
