@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Didi!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #1a2a44;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .click-text {
+            color: white;
+            font-size: clamp(18px, 5vw, 24px);
+            margin-bottom: 20px;
+        }
+        .card {
+            width: 80vw;
+            max-width: 600px;
+            height: 60vh;
+            max-height: 400px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            perspective: 1000px;
+        }
+        .card-cover, .card-inside {
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            backface-visibility: hidden;
+            transition: transform 0.8s ease;
+        }
+        .card-cover {
+            width: 100%;
+            background-color: white;
+            border-radius: 10px;
+            z-index: 2;
+            transform-origin: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .card.opened .card-cover {
+            transform: rotateY(-160deg);
+            animation: openCard 0.8s ease;
+        }
+        @keyframes openCard {
+            0% { transform: rotateY(0deg); }
+            70% { transform: rotateY(-180deg); }
+            100% { transform: rotateY(-160deg); }
+        }
+        .card-inside {
+            width: 100%;
+            background-color: #fff;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+        .message {
+            padding: 15px;
+            text-align: left;
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(18px, 4vw, 24px);
+            color: #333;
+        }
+        .banner {
+            background-color: #ffeb3b;
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+            position: absolute;
+            top: 50px;
+        }
+        .cake-image {
+            width: 80%;
+            max-width: 300px;
+            height: auto;
+            position: absolute;
+            top: 107px; /* Moved down below the banner */
+        }
+    </style>
+</head>
+<body>
+    <div class="click-text">Click this card</div>
+    <div class="card" onclick="this.classList.toggle('opened')">
+        <div class="card-cover">
+            <div class="banner">HAPPY BIRTHDAY!</div>
+            <img src="cake.png" alt="Birthday Cake" class="cake-image">
+        </div>
+        <div class="card-inside">
+            <div class="message">
+                Dear Didi (Best Big Sis Ever),<br><br>
+                Happy Birthday!! Wishing you a day full of joy, cake, and all your favorite things!<br><br>
+                With tons of love,<br>
+                [Your Real Name]
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const audio = new Audio('happy_birthday_cake_python/Baby Shark _ @CoComelon Nursery Rhymes & Kids Songs [020g-0hhCAU].mp3');
+        audio.loop = true;
+        audio.play().catch(() => {
+            document.addEventListener('click', () => audio.play(), { once: true });
+        });
+    </script>
+</body>
+</html>

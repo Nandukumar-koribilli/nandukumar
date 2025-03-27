@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Didiluuu!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #1a2a44;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        .click-text {
+            color: white;
+            font-size: clamp(1px, 5vw, 18px);
+            margin-bottom: 20px;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+            animation: pulse 2s infinite;
+            z-index: 10;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+        .card-container {
+            width: 80vw;
+            max-width: 600px;
+            height: 60vh;
+            max-height: 400px;
+            position: relative;
+            perspective: 1000px;
+            z-index: 10;
+        }
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .card-page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: rotateY(180deg);
+            transition: transform 0.6s ease;
+            transform-origin: left center;
+            backface-visibility: hidden;
+            background-color: #fff9f9;
+            border-radius: 10px;
+        }
+        .card-page.visible {
+            transform: rotateY(0deg);
+        }
+        .card-cover {
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+        
+        .banner {
+            background-color: #ffeb3b;
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+            position: absolute;
+            top: 0;
+            font-family: 'Pacifico', cursive;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border-radius: 10px 10px 0 0;
+        }
+        .cake-image {
+            width: 80%;
+            max-width: 300px;
+            height: auto;
+            margin-top: 70px;
+            transition: all 0.3s ease;
+        }
+        .cake-image:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+        .message-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .message {
+            text-align: left;
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(16px, 3.5vw, 22px);
+            color: #333;
+            line-height: 1.6;
+        }
+        .heart-icon {
+            color: red;
+            font-size: 24px;
+            vertical-align: middle;
+        }
+        
+        /* Background images with tape */
+        .background-image {
+            position: absolute;
+            z-index: 5;
+            overflow: hidden;
+        }
+        .background-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .tape {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.7);
+            height: 20px;
+            width: 70%;
+            left: 15%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .tape.top {
+            top: -10px;
+        }
+        .tape.bottom {
+            bottom: -10px;
+        }
+        /* Position each image according to the red boxes in your screenshot */
+        #bg-image-1 {
+            width: 150px;
+            height: 150px;
+            top: 6%;
+            left: 5%;
+        }
+        #bg-image-2 {
+            width: 140px;
+            height: 96px;
+            top: 5%;
+            right: 5%;
+        }
+        #bg-image-3 {
+            width: 150px;
+            height: 120px;
+            top: 40%;
+            left: 2%;
+        }
+        #bg-image-4 {
+            width: 100px;
+            height: 100px;
+            bottom: 4%;
+            left: 5%;
+        }
+        #bg-image-5 {
+            width: 150px;
+            height: 100px;
+            bottom: 5%;
+            right: 5%;
+        }
+        #bg-image-6 {
+            width: 100px;
+            height: 150px;
+            top: 30%;
+            right: 2%;
+        }
+        #bg-image-7 {
+            width: 120px;
+            height: 120px;
+            bottom: 30%;
+            right: 2%;
+        }
+        
+        /* Balloon styles */
+        .balloon {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            border-radius: 50%;
+            animation: float 5s ease-in infinite;
+            z-index: 1;
+            opacity: 0;
+        }
+        .balloon:before {
+            content: "";
+            position: absolute;
+            width: 1px;
+            height: 100px;
+            background-color: rgba(255,255,255,0.5);
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
+        }
+        
+        /* Confetti styles */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+            z-index: 100;
+            animation: confettiFall 3s linear forwards;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        /* Fireworks styles */
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 5px;
+            animation: explode 1s ease-out forwards;
+            opacity: 0;
+            z-index: 5;
+        }
+        @keyframes explode {
+            0% { transform: scale(0.1); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        
+        /* Heart styles */
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            transform: rotate(45deg);
+            opacity: 0;
+            z-index: 3;
+            animation: floatHearts 4s ease-in forwards;
+        }
+        .heart:before, .heart:after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+        }
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+        .heart:after {
+            top: 0;
+            left: -10px;
+        }
+        @keyframes floatHearts {
+            0% { transform: translateY(100vh) rotate(45deg) scale(0.5); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(45deg) scale(1); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Images with Tape -->
+    <div class="background-image" id="bg-image-1">
+        <img src="images\1.jpg" alt="Background Image 1">
+        <div class="tape top"></div>
+        <div class="tape bottom"></div>
+    </div>
+    <div class="background-image" id="bg-image-2">
+        <img src="images\2.jpg" alt="Background Image 2">
+        <div class="tape top"></div>
+        <div class="tape bottom"></div>
+    </div>
+    <div class="background-image" id="bg-image-3">
+        <img src="images\3.jpg" alt="Background Image 3">
+        <div class="tape top"></div>
+        <div class="tape bottom"></div>
+    </div>
+    <div class="background-image" id="bg-image-4">
+        <img src="images\4.jpg" alt="Background Image 4">
+        <div class="tape top"></div>
+        <div class="tape bottom"></div>
+    </div>
+    <div class="background-image" id="bg-image-5">
+        <img src="images\5.jpg" alt="Background Image 5">
+        <div class="tape top"></div>
+        <div class="tape bottom"></div>
+    </div>
+    <div class="background-image" id="bg-image-6">
+        <img src="images\6.jpg" alt="Background Image 6">
+        <div class="tape top"></div>
+        <div class="tape bottom"></div>
+    </div>
+    <div class="background-image" id="bg-image-7">
+        <img src="images\7.jpg" alt="Background Image 7">
+        <div class="tape top"></div>
+        <div class="tape bottom"></div>
+    </div>
+
+    <div class="click-text">Click this card, Didiluuu!</div>
+    <div class="card-container">
+        <div class="card" id="mainCard">
+            <!-- PAGE 0 (Cover) -->
+            <div class="card-page card-cover" id="page0">
+                <div class="banner">HAPPY BIRTHDAY DIDILUUU! <span class="heart-icon">❤️</span></div>
+                <img src="cake.png" alt="Birthday Cake" class="cake-image">
+            </div>
+            <!-- PAGE 1 -->
+            <div class="card-page" id="page1">
+                <div class="message-container">
+                    <div class="message">
+                        Happy Birthday, Didiluuu <span class="heart-icon">❤️</span><br><br>
+                        Hey my goddess,<br><br>
+                        I don't even know how these two years passed... They just flew by like a dream. Maybe that's why people say that when we are with our loved ones, time turns into mere moments. Didi, you are my moment, my forever, my safe place.
+                    </div>
+                </div>
+            </div>
+            <!-- PAGE 2 -->
+            <div class="card-page" id="page2">
+                <div class="message-container">
+                    <div class="message">
+                        Before I met you, I thought the world was selfish—that people only cared for themselves, that they would use others and toss them away like a bandage once their wounds healed. But then, you came into my life... and you proved me wrong. You are different. You are special. You are the kind of person the world doesn't deserve but is lucky to have.
+                    </div>
+                </div>
+            </div>
+            <!-- PAGE 3 -->
+            <div class="card-page" id="page3">
+                <div class="message-container">
+                    <div class="message">
+                        Didi, I see you... the way you always put others first, the way you carry your pain in silence, pretending that everything is fine. But listen to me, please... You don't have to do that. You don't have to hide your pain. If you're hurting, tell me. If you're tired, lean on me. If something doesn't feel right, say no. Your happiness matters just as much as everyone else's.
+                    </div>
+                </div>
+            </div>
+            <!-- PAGE 4 -->
+            <div class="card-page" id="page4">
+                <div class="message-container">
+                    <div class="message">
+                        Whenever you feel lost or sad, remember this—You have me. Always. No matter what. No matter how much time we spend together, it's never enough for me... I always want more. More moments, more memories, more of you. Every time I see you, my inner child comes alive, and I realize just how lucky I am to have the best Didi in the entire world.
+                    </div>
+                </div>
+            </div>
+            <!-- PAGE 5 -->
+            <div class="card-page" id="page5">
+                <div class="message-container">
+                    <div class="message">
+                        Thank you... for listening to me—not just hearing, but truly listening. Thank you for understanding me in ways no one else does. A day without talking to you feels like something is missing, like a piece of me is lost. Whether we talk or not, whether you show it or not—You will always be important to me. Forever.
+                    </div>
+                </div>
+            </div>
+            <!-- PAGE 6 -->
+            <div class="card-page" id="page6">
+                <div class="message-container">
+                    <div class="message">
+                        I'm grateful for you. For your laughter, for your kindness, for simply existing. You are a blessing, and I will always, always cherish you.<br><br>
+                        And my dear didiluuu, please, don't forget to smile... because your smile is the most beautiful thing in this world.<br><br>
+                        Happy Birthday, My Didi. <span class="heart-icon">❤️</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 0;
+        const totalPages = 7;
+        
+        function createBalloons() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8800'];
+            const balloonCount = 20;
+            
+            for (let i = 0; i < balloonCount; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.left = Math.random() * 100 + 'vw';
+                balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                balloon.style.animationDelay = Math.random() * 3 + 's';
+                balloon.style.animationDuration = 3 + Math.random() * 4 + 's';
+                document.body.appendChild(balloon);
+                
+                setTimeout(() => {
+                    createBurst(balloon.offsetLeft, balloon.offsetTop, balloon.style.backgroundColor);
+                    balloon.remove();
+                }, (Math.random() * 3000) + 3000);
+            }
+        }
+        
+        function createBurst(x, y, color) {
+            const burstParticles = 15;
+            for (let i = 0; i < burstParticles; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'confetti';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.backgroundColor = color;
+                particle.style.animationDelay = Math.random() * 0.5 + 's';
+                particle.style.transform = `rotate(${Math.random() * 360}deg)`;
+                document.body.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 3000);
+            }
+        }
+        
+        function createFireworks() {
+            setInterval(() => {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.left = Math.random() * 100 + 'vw';
+                firework.style.top = Math.random() * 50 + 'vh';
+                firework.style.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                document.body.appendChild(firework);
+                
+                setTimeout(() => {
+                    firework.remove();
+                }, 1000);
+            }, 800);
+        }
+        
+        function createHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heart.style.animationDuration = 3 + Math.random() * 3 + 's';
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 4000);
+            }, 500);
+        }
+        
+        function navigatePage() {
+            const currentPageElement = document.getElementById(`page${currentPage}`);
+            currentPageElement.classList.remove('visible');
+            
+            setTimeout(() => {
+                currentPage = (currentPage + 1) % totalPages;
+                const nextPageElement = document.getElementById(`page${currentPage}`);
+                nextPageElement.classList.add('visible');
+                
+                if (currentPage === 1 && !document.body.classList.contains('effects-started')) {
+                    createFireworks();
+                    createHearts();
+                    document.body.classList.add('effects-started');
+                }
+            }, 300);
+        }
+        
+        window.onload = function() {
+            createBalloons();
+            
+            setInterval(() => {
+                const clickText = document.querySelector('.click-text');
+                clickText.style.transform = clickText.style.transform === 'scale(1.1)' ? 'scale(1)' : 'scale(1.1)';
+            }, 1000);
+            
+            document.getElementById('page0').classList.add('visible');
+            
+            for (let i = 0; i < totalPages; i++) {
+                const page = document.getElementById(`page${i}`);
+                const clickableArea = i === 0 ? page : page.querySelector('.message-container');
+                clickableArea.addEventListener('click', navigatePage);
+            }
+        };
+    </script>
+</body>
+</html>
