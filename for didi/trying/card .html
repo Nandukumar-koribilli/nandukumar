@@ -114,7 +114,7 @@
         }
         .message {
             text-align: left;
-            font-family: 'Dancing+Script', cursive;
+            font-family: 'Dancing Script', cursive;
             font-size: clamp(16px, 3.5vw, 22px);
             color: #333;
             line-height: 1.6;
@@ -260,7 +260,7 @@
             <div class="card-page" id="page4">
                 <div class="message-container">
                     <div class="message">
-                        The way you listen—really listen—makes me feel so heard, so safe. I can talk to you about anything and everything, and you just get me. A day without talking to you? It’s like something’s missing—like I’ve lost a piece of myself. Okati gurthuku petuko, Didi: N AscoltNuvvu natho matladina, matladakapoyina, nuvvu naku eppudu important eyy 🫀🥺. You’re stuck with me, okay? Forever and always.
+                        The way you listen—really listen—makes me feel so heard, so safe. I can talk to you about anything and everything, and you just get me. A day without talking to you? It’s like something’s missing—like I’ve lost a piece of myself. Okati gurthuku petuko, Didi: Nuvvu natho matladina, matladakapoyina, nuvvu naku eppudu important eyy 🫀🥺. You’re stuck with me, okay? Forever and always.
                     </div>
                 </div>
             </div>
@@ -445,30 +445,41 @@
             }, 300);
         }
         
-        // Swipe detection
+        // Swipe and tap detection
         let touchStartX = 0;
         let touchEndX = 0;
+        let touchStartY = 0;
+        let touchEndY = 0;
         
         function handleTouchStart(event) {
             touchStartX = event.touches[0].clientX;
+            touchStartY = event.touches[0].clientY; // Track Y to distinguish tap from scroll
         }
         
         function handleTouchMove(event) {
             touchEndX = event.touches[0].clientX;
+            touchEndY = event.touches[0].clientY;
         }
         
         function handleTouchEnd() {
-            const swipeDistance = touchEndX - touchStartX;
+            const swipeDistanceX = touchEndX - touchStartX;
+            const swipeDistanceY = touchEndY - touchStartY;
             const minSwipeDistance = 50; // Minimum distance to consider it a swipe
+            const maxTapDistance = 10; // Maximum movement to consider it a tap
             
-            if (Math.abs(swipeDistance) > minSwipeDistance) {
-                if (swipeDistance > 0) {
+            // Check if it’s a swipe
+            if (Math.abs(swipeDistanceX) > minSwipeDistance && Math.abs(swipeDistanceY) < 50) {
+                if (swipeDistanceX > 0) {
                     // Swipe right (previous page)
                     goToPreviousPage();
                 } else {
                     // Swipe left (next page)
                     goToNextPage();
                 }
+            }
+            // Check if it’s a tap (minimal movement in X and Y)
+            else if (Math.abs(swipeDistanceX) < maxTapDistance && Math.abs(swipeDistanceY) < maxTapDistance) {
+                goToNextPage();
             }
         }
         
@@ -484,14 +495,14 @@
             // Show cover page initially
             document.getElementById('page0').classList.add('visible');
             
-            // Add click event listeners to all pages
+            // Add click event listeners to all pages (for desktop)
             for (let i = 0; i < totalPages; i++) {
                 const page = document.getElementById(`page${i}`);
                 const clickableArea = i === 0 ? page : page.querySelector('.message-container');
                 clickableArea.addEventListener('click', goToNextPage);
             }
             
-            // Add swipe event listeners to the card container
+            // Add swipe and tap event listeners to the card container (for mobile)
             const cardContainer = document.querySelector('.card-container');
             cardContainer.addEventListener('touchstart', handleTouchStart);
             cardContainer.addEventListener('touchmove', handleTouchMove);
