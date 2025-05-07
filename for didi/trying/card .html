@@ -229,12 +229,6 @@
             z-index: 10;
         }
 
-        .card-page.next-page {
-            transform: rotateY(0deg);
-            opacity: 1;
-            z-index: 9;
-        }
-
         .card-page.flipped {
             transform: rotateY(-180deg);
             opacity: 0;
@@ -253,7 +247,7 @@
         }
 
         .banner, .cake-image, .cover-prompt {
-            pointer-events: none; /* Ensure taps pass through to card-container */
+            pointer-events: none;
         }
 
         .banner {
@@ -342,7 +336,7 @@
             opacity: 0;
             transform: scale(0.9);
             animation: fadeInScale 1s 0.4s ease-out forwards;
-            pointer-events: none; /* Ensure taps pass through */
+            pointer-events: none;
         }
 
         @keyframes fadeInScale {
@@ -360,30 +354,19 @@
             pointer-events: none;
         }
 
-        #page11 .message-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #page11 .message {
-            text-align: center;
-        }
-
-        #page11 .final-signature {
+        .final-signature {
             font-size: 28px;
             font-weight: 700;
             color: #6a5a53;
             margin-top: 15px;
         }
 
-        #page11 .final-name {
+        .final-name {
             font-size: 24px;
             color: #8a7a73;
         }
 
-        #page11 .final-hearts {
+        .final-hearts {
             margin-top: 20px;
             font-size: 22px;
         }
@@ -535,86 +518,25 @@
                     <div class="message">
                         Happy Birthday, My Dearest Didiluuuu <span class="heart-icon">❤️</span><br><br>
                         Hey my goddess, my cute panda, my one and only Didi,
-                        Happy Birthday! I can't believe how these two years have flown by! It feels like time moved so fast. I guess that's why people say that when we're with our loved ones, years feel like minutes. And Didi, with you, every second feels like a wild, joyful adventure. You're my forever, my safe place, my partner-in-crime who makes even the silliest moments unforgettable.
-                    </div>
-                </div>
-            </div>
-            <div class="card-page" id="page2">
-                <div class="message-container">
-                    <div class="message">
+                        Happy Birthday! I can't believe how these two years have flown by! It feels like time moved so fast. I guess that's why people say that when we're with our loved ones, years feel like minutes. And Didi, with you, every second feels like a wild, joyful adventure. You're my forever, my safe place, my partner-in-crime who makes even the silliest moments unforgettable.<br><br>
                         Before I met you, I thought the world was full of selfish people—folks who just use others like a bandage and toss them aside once they're healed. I was so sure of it. But then you crashed into my life like a glitter bomb of goodness and proved me totally wrong. Didi, you're different. You're special. You're the kind of person who lights up everything around her, even when she doesn't realize it. The world doesn't deserve you, but oh man, it's so lucky to have you.<br><br>
                         <hr class="heart-divider">
-                    </div>
-                </div>
-            </div>
-            <div class="card-page" id="page3">
-                <div class="message-container">
-                    <div class="message">
-                        You understand people in a way I've never seen before. The way you listen—really listen—makes me feel so heard, so safe. I can talk to you about anything and everything, and you just get me. A day without talking to you? It's like something's missing—like I've lost a piece of myself. Okati gurthuku petuko, Didi: Nuvvu natho matladina, matladakapoyina, nuvvu naku eppudu important eyy <span class="heart-icon">🫀</span>🥺. You're stuck with me, okay? Forever and always.
+                        You understand people in a way I've never seen before. The way you listen—really listen—makes me feel so heard, so safe. I can talk to you about anything and everything, and you just get me. A day without talking to you? It's like something's missing—like I've lost a piece of myself. Okati gurthuku petuko, Didi: Nuvvu natho matladina, matladakapoyina, nuvvu naku eppudu important eyy <span class="heart-icon">🫀</span>🥺. You're stuck with me, okay? Forever and always.<br><br>
                         <img src="images/2.jpg" alt="Shared Memory Image" class="page-image">
-                    </div>
-                </div>
-            </div>
-            <div class="card-page" id="page4">
-                <div class="message-container">
-                    <div class="message">
-                        But here's the thing, Didi—I see you. I see how you put everyone else first, how you carry your pain in silence like it's some secret mission. You pretend everything's fine, but I know you too well. Nuvvu antha pain nee venchukuntey, I feel that pain too. Please, don't hide it all inside. If you're hurting, just say it out loud—I'm here to listen. If you're tired, lean on me—I've got you.
+                        But here's the thing, Didi—I see you. I see how you put everyone else first, how you carry your pain in silence like it's some secret mission. You pretend everything's fine, but I know you too well. Nuvvu antha pain nee venchukuntey, I feel that pain too. Please, don't hide it all inside. If you're hurting, just say it out loud—I'm here to listen. If you're tired, lean on me—I've got you.<br><br>
                         <img src="images/5.jpg" alt="Supportive Image" class="page-image">
-                    </div>
-                </div>
-            </div>
-            <div class="card-page" id="page5">
-                <div class="message-container">
-                    <div class="message">
                         If something doesn't feel right, say "no"—you don't have to please everyone. Your happiness matters just as much as anyone else's, okay? Promise me you'll remember that.<br><br>
-                        When you feel sad or lost, just whisper my name. I'll be there—maybe not always physically, but in every thought, every memory, every moment when you need someone who understands you without words.
+                        When you feel sad or lost, just whisper my name. I'll be there—maybe not always physically, but in every thought, every memory, every moment when you need someone who understands you without words.<br><br>
                         <hr class="heart-divider">
-                    </div>
-                </div>
-            </div>
-            <div class="card-page" id="page6">
-                <div class="message-container">
-                    <div class="message">
                         No matter how much time we spend together, it's never enough for me. I'm greedy like that—I always want more! More walks, more games, more laughter, more of those moments where my inner child comes alive because of you. Every time I see you, I turn into this goofy, happy kid again, and I realize just how lucky I am to have the world's best Didi.<br><br>
-                        I still remember the day we met—back when we were just part of the alumni team, running around like chaos coordinators.
-                    </div>
-                </div>
-            </div>
-            <div class="card-page" id="page7">
-                <div class="message-container">
-                    <div class="message">
-                        Who would've thought that one day you'd become my sister, my safe place, my person? From that day, life handed me the most beautiful blessing—you. Remember how we'd go to the beach, or walk from college to your house, just talking about everything and nothing? Those little moments turned into my happiest memories. And when the team went out—movies, outings, whatever—if they left you behind, I stayed. Because I couldn't enjoy anything without my Didi.
-                    </div>
-                </div>
-            </div>
-            <div class="card-page" id="page8">
-                <div class="message-container">
-                    <div class="message">
+                        I still remember the day we met—back when we were just part of the alumni team, running around like chaos coordinators. Who would've thought that one day you'd become my sister, my safe place, my person? From that day, life handed me the most beautiful blessing—you. Remember how we'd go to the beach, or walk from college to your house, just talking about everything and nothing? Those little moments turned into my happiest memories. And when the team went out—movies, outings, whatever—if they left you behind, I stayed. Because I couldn't enjoy anything without my Didi.<br><br>
                         Instead, we made our own fun—I'd drag you to CMR, we'd play games until we were dizzy, watch movies, laugh until our stomachs hurt. In those moments, I knew I'd found a bond that nothing could break.<br><br>
-                        But Didi, it's been a whole month since I last saw you, and I miss you so much it hurts. I know you're studying hard, chasing your dreams like the superhero you are, and I'm so proud of you. But it kills me to see you like this—staying up all night, sleeping in the morning, skipping meals.
+                        But Didi, it's been a whole month since I last saw you, and I miss you so much it hurts. I know you're studying hard, chasing your dreams like the superhero you are, and I'm so proud of you. But it kills me to see you like this—staying up all night, sleeping in the morning, skipping meals.<br><br>
                         <hr class="heart-divider">
-                    </div>
-                </div>
-            </div>
-            <div class="card-page" id="page9">
-                <div class="message-container">
-                    <div class="message">
                         Please, take care of yourself too. If I could, I'd sit right next to you, force you to eat, remind you that your health matters more than any exam. Because no matter how big your dreams are, <strong>you</strong> are more important to me.<br><br>
-                        When you're tired, when you're overwhelmed, just know—I'm here. Always. No matter how far apart we are, no matter how crazy life gets, you'll always have me. You're not just my Didi—you're my happiness, my home. <span class="heart-icon">🏡</span>
-                    </div>
-                </div>
-            </div>
-            <div class="card-page" id="page10">
-                <div class="message-container">
-                    <div class="message">
+                        When you're tired, when you're overwhelmed, just know—I'm here. Always. No matter how far apart we are, no matter how crazy life gets, you'll always have me. You're not just my Didi—you're my happiness, my home. <span class="heart-icon">🏡</span><br><br>
                         There's never enough time to spend with you, and I'll always crave more—more of your laughter, more of your kindness, more of <strong>you</strong>.<br><br>
-                        So on this special day, I want to say thank you. Thank you for coming into my life like a burst of sunshine <span class="heart-icon">☀️</span>. Thank you for letting me in, for loving me like a real sister. Thank you for standing by me in every situation, for making me smile even on my worst days. I'm thankful the universe sent you to me, and I'm thankful I found you.
-                    </div>
-                </div>
-            </div>
-            <div class="card-page" id="page11">
-                <div class="message-container">
-                    <div class="message">
+                        So on this special day, I want to say thank you. Thank you for coming into my life like a burst of sunshine <span class="heart-icon">☀️</span>. Thank you for letting me in, for loving me like a real sister. Thank you for standing by me in every situation, for making me smile even on my worst days. I'm thankful the universe sent you to me, and I'm thankful I found you.<br><br>
                         And Didiluuuu, please, never stop smiling—because your smile is the most beautiful thing in this world. It's the light that keeps me going, the magic that makes everything better. I promise, as long as I'm here, I'll always protect that smile.<br><br>
                         <strong>Happy Birthday, my Didi.</strong> You're my everything, and I hope this day brings you all the joy you deserve—and more. Let's make more memories soon, okay? I love you beyond words.<br><br>
                         <span class="final-signature">Forever yours,</span><br>
@@ -630,7 +552,7 @@
 
     <script>
         let currentPage = 0;
-        const totalPages = 12;
+        const totalPages = 2;
         let effectsStarted = false;
         let firstClick = true;
         let isTransitioning = false;
@@ -811,7 +733,7 @@
                 const page = document.getElementById(`page${i}`);
                 if (!page) continue;
 
-                page.classList.remove('visible', 'next-page', 'flipped');
+                page.classList.remove('visible', 'flipped');
                 page.style.transform = 'rotateY(180deg)';
                 page.style.opacity = '0';
                 page.style.zIndex = '7';
@@ -821,11 +743,6 @@
                     page.style.transform = 'rotateY(0deg)';
                     page.style.opacity = '1';
                     page.style.zIndex = '10';
-                } else if (i === currentPage + 1) {
-                    page.classList.add('next-page');
-                    page.style.transform = 'rotateY(0deg)';
-                    page.style.opacity = '1';
-                    page.style.zIndex = '9';
                 } else if (i < currentPage) {
                     page.classList.add('flipped');
                     page.style.transform = 'rotateY(-180deg)';
@@ -880,42 +797,22 @@
         function goToNextPage() {
             if (currentPage < totalPages - 1) {
                 goToPage(currentPage + 1);
-            }
-        }
-
-        function goToPreviousPage() {
-            if (currentPage > 0) {
-                goToPage(currentPage - 1);
+            } else {
+                goToPage(0); // Return to front page
             }
         }
 
         function handleTap(event) {
-            // Allow scrolling in message-container without triggering page turn
             if (event.target.closest('.message-container')) {
                 return;
             }
             goToNextPage();
         }
 
-        // Unified tap handling for both touch and click
         cardContainer.addEventListener('click', handleTap);
         cardContainer.addEventListener('touchend', (event) => {
-            // Prevent default to avoid conflicts with scrolling
             event.preventDefault();
             handleTap(event);
-        });
-
-        // Double-tap for previous page
-        let lastTap = 0;
-        cardContainer.addEventListener('touchend', (event) => {
-            if (event.target.closest('.message-container')) return;
-
-            const currentTime = new Date().getTime();
-            const tapLength = currentTime - lastTap;
-            if (tapLength < 300 && tapLength > 0) {
-                goToPreviousPage();
-            }
-            lastTap = currentTime;
         });
 
         window.onload = function() {
