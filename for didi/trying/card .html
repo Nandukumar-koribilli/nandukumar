@@ -155,7 +155,7 @@
             animation: subtlePulse 3s infinite ease-in-out;
             z-index: 10;
             position: absolute;
-            top: calc(50% - clamp(500px, 80vh, 600px)/2 - 60px); /* Position above card */
+            top: calc(50% - clamp(500px, 80vh, 600px)/2 - 60px);
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
@@ -668,7 +668,7 @@
             setTimeout(createShootingStars, 15000);
         }
 
-        function createFallingLeaves(count = 30) {
+        function createFallingLeaves(count = 20) {
             if (!leafContainer || !effectsStarted || leafContainer.children.length > count * 2) return;
 
             const leafColors = ['--leaf-color-1', '--leaf-color-2', '--leaf-color-3'];
@@ -692,7 +692,7 @@
             setTimeout(() => createFallingLeaves(count), 10000);
         }
 
-        function createBalloons(count = 12) {
+        function createBalloons(count = 8) {
             if (!effectsStarted || document.querySelectorAll('.balloon').length >= count * 1.5) return;
 
             for (let i = 0; i < count; i++) {
@@ -714,7 +714,7 @@
             }
         }
 
-        function createConfetti(count = 60) {
+        function createConfetti(count = 40) {
             if (!effectsStarted) return;
 
             for (let i = 0; i < count; i++) {
@@ -740,7 +740,7 @@
             }
         }
 
-        function createFireworks(count = 5, interval = 1200) {
+        function createFireworks(count = 3, interval = 1200) {
             if (!effectsStarted || currentPage === 0) return;
 
             let created = 0;
@@ -763,7 +763,7 @@
             }, interval);
         }
 
-        function createHearts(count = 10, interval = 600) {
+        function createHearts(count = 6, interval = 600) {
             if (!effectsStarted || currentPage === 0) return;
 
             let created = 0;
@@ -787,10 +787,10 @@
             }, interval);
         }
 
-        const throttledCreateBalloons = throttle(createBalloons, 5000);
-        const throttledCreateConfetti = throttle(createConfetti, 5000);
-        const throttledCreateFireworks = throttle(createFireworks, 5000);
-        const throttledCreateHearts = throttle(createHearts, 5000);
+        const throttledCreateBalloons = throttle(createBalloons, 6000);
+        const throttledCreateConfetti = throttle(createConfetti, 6000);
+        const throttledCreateFireworks = throttle(createFireworks, 6000);
+        const throttledCreateHearts = throttle(createHearts, 6000);
 
         function cleanupAnimations() {
             ['leaf', 'balloon', 'confetti', 'firework', 'heart'].forEach(className => {
@@ -840,6 +840,8 @@
                 previousEl.classList.remove('visible');
                 previousEl.classList.add('flipped');
                 previousEl.style.zIndex = '8';
+                previousEl.style.transform = 'rotateY(-180deg)';
+                previousEl.style.opacity = '0';
             }
 
             currentPage = pageNumber;
@@ -850,11 +852,11 @@
                 cleanupAnimations();
             } else if (!effectsStarted) {
                 effectsStarted = true;
-                createFallingLeaves(30);
-                throttledCreateBalloons(12);
-                throttledCreateConfetti(60);
-                setTimeout(() => throttledCreateFireworks(5, 1200), 500);
-                setTimeout(() => throttledCreateHearts(10, 600), 800);
+                createFallingLeaves(20);
+                throttledCreateBalloons(8);
+                throttledCreateConfetti(40);
+                setTimeout(() => throttledCreateFireworks(3, 1200), 500);
+                setTimeout(() => throttledCreateHearts(6, 600), 800);
             }
 
             if (firstClick) {
@@ -900,13 +902,11 @@
             }
 
             const swipeDistance = touchEndX - touchStartX;
-            const minSwipeDistance = 80;
+            const minSwipeDistance = 100;
 
-            if (swipeDistance < -minSwipeDistance) {
-                goToNextPage();
-            } else if (swipeDistance > minSwipeDistance && currentPage > 0) {
+            if (swipeDistance > minSwipeDistance && currentPage > 0) {
                 goToPreviousPage();
-            } else if (Math.abs(swipeDistance) < minSwipeDistance) {
+            } else {
                 goToNextPage();
             }
 
@@ -918,12 +918,18 @@
             cardContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
             cardContainer.addEventListener('touchmove', handleTouchMove, { passive: true });
             cardContainer.addEventListener('touchend', handleTouchEnd);
-        } else {
-            cardContainer.addEventListener('click', goToNextPage);
         }
+
+        cardContainer.addEventListener('click', (event) => {
+            if (!event.target.closest('.message-container')) {
+                goToNextPage();
+            }
+        });
 
         let lastTap = 0;
         cardContainer.addEventListener('touchend', (event) => {
+            if (event.target.closest('.message-container')) return;
+
             const currentTime = new Date().getTime();
             const tapLength = currentTime - lastTap;
             if (tapLength < 300 && tapLength > 0) {
