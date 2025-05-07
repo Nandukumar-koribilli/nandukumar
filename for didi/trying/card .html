@@ -252,6 +252,10 @@
             background: linear-gradient(140deg, #fffef8, #fff8e8);
         }
 
+        .banner, .cake-image, .cover-prompt {
+            pointer-events: none; /* Ensure taps pass through to card-container */
+        }
+
         .banner {
             background: linear-gradient(45deg, #ff9a9e, #fad0c4);
             width: 100%;
@@ -338,6 +342,7 @@
             opacity: 0;
             transform: scale(0.9);
             animation: fadeInScale 1s 0.4s ease-out forwards;
+            pointer-events: none; /* Ensure taps pass through */
         }
 
         @keyframes fadeInScale {
@@ -352,6 +357,7 @@
             background-position: center;
             margin: 30px 0;
             opacity: 0.7;
+            pointer-events: none;
         }
 
         #page11 .message-container {
@@ -392,6 +398,7 @@
             z-index: 6;
             opacity: 0;
             bottom: -150px;
+            pointer-events: none;
         }
 
         .balloon::after {
@@ -429,6 +436,7 @@
             z-index: 12;
             animation: confettiFall 3.5s ease-out forwards;
             transform-origin: center;
+            pointer-events: none;
         }
 
         .confetti.triangle {
@@ -461,6 +469,7 @@
             animation: explode 0.8s ease-out forwards;
             opacity: 0;
             z-index: 7;
+            pointer-events: none;
         }
 
         @keyframes explode {
@@ -478,6 +487,7 @@
             animation: floatHearts 5s ease-out forwards;
             transform: rotate(-45deg);
             background-color: var(--heart-color);
+            pointer-events: none;
         }
 
         .heart::before,
@@ -624,8 +634,6 @@
         let effectsStarted = false;
         let firstClick = true;
         let isTransitioning = false;
-        let touchStartX = 0;
-        let touchEndX = 0;
 
         const mainCard = document.getElementById('mainCard');
         const cardContainer = document.getElementById('cardContainer');
@@ -668,7 +676,7 @@
             setTimeout(createShootingStars, 15000);
         }
 
-        function createFallingLeaves(count = 20) {
+        function createFallingLeaves(count = 15) {
             if (!leafContainer || !effectsStarted || leafContainer.children.length > count * 2) return;
 
             const leafColors = ['--leaf-color-1', '--leaf-color-2', '--leaf-color-3'];
@@ -692,7 +700,7 @@
             setTimeout(() => createFallingLeaves(count), 10000);
         }
 
-        function createBalloons(count = 8) {
+        function createBalloons(count = 6) {
             if (!effectsStarted || document.querySelectorAll('.balloon').length >= count * 1.5) return;
 
             for (let i = 0; i < count; i++) {
@@ -714,7 +722,7 @@
             }
         }
 
-        function createConfetti(count = 40) {
+        function createConfetti(count = 30) {
             if (!effectsStarted) return;
 
             for (let i = 0; i < count; i++) {
@@ -740,7 +748,7 @@
             }
         }
 
-        function createFireworks(count = 3, interval = 1200) {
+        function createFireworks(count = 2, interval = 1200) {
             if (!effectsStarted || currentPage === 0) return;
 
             let created = 0;
@@ -763,7 +771,7 @@
             }, interval);
         }
 
-        function createHearts(count = 6, interval = 600) {
+        function createHearts(count = 4, interval = 600) {
             if (!effectsStarted || currentPage === 0) return;
 
             let created = 0;
@@ -852,11 +860,11 @@
                 cleanupAnimations();
             } else if (!effectsStarted) {
                 effectsStarted = true;
-                createFallingLeaves(20);
-                throttledCreateBalloons(8);
-                throttledCreateConfetti(40);
-                setTimeout(() => throttledCreateFireworks(3, 1200), 500);
-                setTimeout(() => throttledCreateHearts(6, 600), 800);
+                createFallingLeaves(15);
+                throttledCreateBalloons(6);
+                throttledCreateConfetti(30);
+                setTimeout(() => throttledCreateFireworks(2, 1200), 500);
+                setTimeout(() => throttledCreateHearts(4, 600), 800);
             }
 
             if (firstClick) {
@@ -881,51 +889,23 @@
             }
         }
 
-        function handleTouchStart(event) {
+        function handleTap(event) {
+            // Allow scrolling in message-container without triggering page turn
             if (event.target.closest('.message-container')) {
-                touchStartX = 0;
                 return;
             }
-            touchStartX = event.touches[0].clientX;
+            goToNextPage();
         }
 
-        function handleTouchMove(event) {
-            if (touchStartX === 0) return;
-            touchEndX = event.touches[0].clientX;
-        }
-
-        function handleTouchEnd(event) {
-            if (event.target.closest('.message-container') || touchStartX === 0) {
-                touchStartX = 0;
-                touchEndX = 0;
-                return;
-            }
-
-            const swipeDistance = touchEndX - touchStartX;
-            const minSwipeDistance = 100;
-
-            if (swipeDistance > minSwipeDistance && currentPage > 0) {
-                goToPreviousPage();
-            } else {
-                goToNextPage();
-            }
-
-            touchStartX = 0;
-            touchEndX = 0;
-        }
-
-        if ('ontouchstart' in window) {
-            cardContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
-            cardContainer.addEventListener('touchmove', handleTouchMove, { passive: true });
-            cardContainer.addEventListener('touchend', handleTouchEnd);
-        }
-
-        cardContainer.addEventListener('click', (event) => {
-            if (!event.target.closest('.message-container')) {
-                goToNextPage();
-            }
+        // Unified tap handling for both touch and click
+        cardContainer.addEventListener('click', handleTap);
+        cardContainer.addEventListener('touchend', (event) => {
+            // Prevent default to avoid conflicts with scrolling
+            event.preventDefault();
+            handleTap(event);
         });
 
+        // Double-tap for previous page
         let lastTap = 0;
         cardContainer.addEventListener('touchend', (event) => {
             if (event.target.closest('.message-container')) return;
