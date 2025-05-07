@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy Birthday, My Dearest Didiluuu ✨💖🍂</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
     <style>
@@ -21,9 +21,11 @@
             --balloon-hue: 0;
         }
 
-        body {
+        html, body {
             margin: 0;
+            padding: 0;
             height: 100vh;
+            overflow: hidden; /* Disable outer scrolling */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -36,8 +38,15 @@
             background-position: 0 0, 25px 25px;
             animation: starryNight 150s linear infinite;
             font-family: 'Arial', sans-serif;
-            overflow: hidden;
             position: relative;
+            touch-action: none; /* Prevent pinch-zoom and double-tap zoom on mobile */
+        }
+
+        @media (max-width: 768px) {
+            html, body {
+                overflow: hidden; /* Reinforce for mobile */
+                touch-action: none; /* Ensure no unwanted touch actions */
+            }
         }
 
         @keyframes starryNight {
@@ -167,6 +176,7 @@
         .initial-prompt.hidden {
             opacity: 0;
             pointer-events: none;
+            display: none; /* Ensure it’s completely hidden */
         }
 
         @keyframes subtlePulse {
@@ -293,6 +303,7 @@
             margin-top: 10px;
             scrollbar-width: thin;
             scrollbar-color: #e8dcd1 #fffef8;
+            touch-action: pan-y; /* Allow vertical scrolling in message-container */
         }
 
         .message-container::-webkit-scrollbar {
@@ -554,7 +565,6 @@
         let currentPage = 0;
         const totalPages = 2;
         let effectsStarted = false;
-        let firstClick = true;
         let isTransitioning = false;
 
         const mainCard = document.getElementById('mainCard');
@@ -782,11 +792,7 @@
                 throttledCreateConfetti(30);
                 setTimeout(() => throttledCreateFireworks(2, 1200), 500);
                 setTimeout(() => throttledCreateHearts(4, 600), 800);
-            }
-
-            if (firstClick) {
                 if (initialPrompt) initialPrompt.classList.add('hidden');
-                firstClick = false;
             }
 
             setTimeout(() => {
@@ -798,7 +804,7 @@
             if (currentPage < totalPages - 1) {
                 goToPage(currentPage + 1);
             } else {
-                goToPage(0); // Return to front page
+                goToPage(0);
             }
         }
 
