@@ -25,7 +25,7 @@
             margin: 0;
             padding: 0;
             height: 100vh;
-            overflow: hidden; /* Disable outer scrolling */
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -39,13 +39,13 @@
             animation: starryNight 150s linear infinite;
             font-family: 'Arial', sans-serif;
             position: relative;
-            touch-action: none; /* Prevent pinch-zoom and double-tap zoom on mobile */
+            touch-action: none;
         }
 
         @media (max-width: 768px) {
             html, body {
-                overflow: hidden; /* Reinforce for mobile */
-                touch-action: none; /* Ensure no unwanted touch actions */
+                overflow: hidden;
+                touch-action: none;
             }
         }
 
@@ -176,12 +176,29 @@
         .initial-prompt.hidden {
             opacity: 0;
             pointer-events: none;
-            display: none; /* Ensure it’s completely hidden */
+            display: none;
         }
 
         @keyframes subtlePulse {
             0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
             50% { opacity: 1; transform: translateX(-50%) scale(1.04); }
+        }
+
+        .scroll-prompt {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(18px, 4vw, 22px);
+            color: #6a5a53;
+            text-align: center;
+            padding: 8px 0;
+            background: linear-gradient(45deg, #fad0c4, #ff9a9e);
+            border-radius: 10px 10px 0 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 12;
+            pointer-events: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .card-container {
@@ -256,7 +273,7 @@
             background: linear-gradient(140deg, #fffef8, #fff8e8);
         }
 
-        .banner, .cake-image, .cover-prompt {
+        .banner, .cake-image, .cover-prompt, .scroll-prompt {
             pointer-events: none;
         }
 
@@ -300,10 +317,10 @@
             flex: 1;
             overflow-y: auto;
             padding: 15px 10px;
-            margin-top: 10px;
+            margin-top: 40px; /* Space for scroll-prompt */
             scrollbar-width: thin;
             scrollbar-color: #e8dcd1 #fffef8;
-            touch-action: pan-y; /* Allow vertical scrolling in message-container */
+            touch-action: pan-y;
         }
 
         .message-container::-webkit-scrollbar {
@@ -525,6 +542,7 @@
                 <div class="cover-prompt">(Tap to open)</div>
             </div>
             <div class="card-page" id="page1">
+                <div class="scroll-prompt">Scroll</div>
                 <div class="message-container">
                     <div class="message">
                         Happy Birthday, My Dearest Didiluuuu <span class="heart-icon">❤️</span><br><br>
