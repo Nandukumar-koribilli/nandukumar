@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice to Text - Speak & Save</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .record-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            background: #ff6b6b;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .record-btn:hover {
+            background: #ff8787;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.5);
+        }
+
+        .record-btn.recording {
+            background: #4CAF50;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .record-btn.recording:hover {
+            background: #66bb6a;
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.5);
+        }
+
+        .record-btn i {
+            font-size: 1.2rem;
+        }
+
+        .section {
+            margin-top: 30px;
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            color: #555;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        #transcript, #history {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            min-height: 100px;
+            text-align: left;
+            font-size: 0.95rem;
+            color: #333;
+            line-height: 1.6;
+            overflow-y: auto;
+            max-height: 200px;
+        }
+
+        #history ul {
+            list-style: none;
+        }
+
+        #history li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        #history li:last-child {
+            border-bottom: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .record-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+
+            h2 {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Voice to Text - Speak & Save</h1>
+        <button id="recordButton" class="record-btn">
+            <i class="fas fa-microphone"></i> Start Recording
+        </button>
+        <div class="section">
+            <h2>Current Transcription</h2>
+            <div id="transcript"></div>
+        </div>
+        <div class="section">
+            <h2>Stored Transcriptions</h2>
+            <div id="history"></div>
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'en-US';
+        recognition.interimResults = true;
+        recognition.maxAlternatives = 1;
+
+        const recordButton = document.getElementById('recordButton');
+        const transcriptDiv = document.getElementById('transcript');
+        const historyDiv = document.getElementById('history');
+        let isRecording = false;
+
+        fetchHistory();
+
+        recordButton.addEventListener('click', () => {
+            if (!isRecording) {
+                recognition.start();
+                recordButton.innerHTML = '<i class="fas fa-stop"></i> Stop Recording';
+                recordButton.classList.add('recording');
+                isRecording = true;
+            } else {
+                recognition.stop();
+                recordButton.innerHTML = '<i class="fas fa-microphone"></i> Start Recording';
+                recordButton.classList.remove('recording');
+                isRecording = false;
+            }
+        });
+
+        recognition.onresult = async (event) => {
+            let interimTranscript = '';
+            let finalTranscript = '';
+
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                const transcript = event.results[i][0].transcript;
+                if (event.results[i].isFinal) {
+                    finalTranscript += transcript;
+                } else {
+                    interimTranscript += transcript;
+                }
+            }
+
+            transcriptDiv.innerHTML = `<strong>Final:</strong> ${finalTranscript}<br><strong>Interim:</strong> ${interimTranscript}`;
+
+            if (finalTranscript) {
+                await fetch('/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: finalTranscript })
+                });
+                fetchHistory();
+            }
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Speech recognition error:', event.error);
+            transcriptDiv.textContent = 'Error occurred in recognition: ' + event.error;
+            recordButton.innerHTML = '<i class="fas fa-microphone"></i> Start Recording';
+            recordButton.classList.remove('recording');
+            isRecording = false;
+        };
+
+        recognition.onend = () => {
+            if (isRecording) {
+                recognition.start();
+            }
+        };
+
+        async function fetchHistory() {
+            const response = await fetch('/transcriptions');
+            const transcriptions = await response.json();
+            let html = '<ul>';
+            if (transcriptions.length > 0) {
+                transcriptions.forEach(t => {
+                    html += `<li><strong>${new Date(t.timestamp).toLocaleString()}</strong>: ${t.text}</li>`;
+                });
+            } else {
+                html += '<li>No transcriptions yet.</li>';
+            }
+            html += '</ul>';
+            historyDiv.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
