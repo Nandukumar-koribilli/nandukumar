@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Translator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🌐</span>
+                    <h1>Voice Translator</h1>
+                </div>
+                <p class="header-description">
+                    Speak naturally to translate between English and Telugu. Speak in English to translate to Telugu, or in Telugu to translate to English.
+                </p>
+                <div class="features">
+                    <div class="feature"><span class="feature-icon">🎤</span> Real-time Speech Recognition</div>
+                    <div class="feature"><span class="feature-icon">🌍</span> Supports English and Telugu</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="language-info card">
+                <h2>Translation Mode</h2>
+                <p class="language-mode">English ↔ Telugu: Speak in English to translate to Telugu, or in Telugu to translate to English.</p>
+            </section>
+
+            <section class="recorder-section card">
+                <div class="recorder-header">
+                    <h2>Voice Input</h2>
+                    <p>Click the microphone to start recording</p>
+                </div>
+                <div class="microphone-container">
+                    <button id="mic-button" class="mic-button" onclick="toggleRecording()">
+                        <span class="mic-icon">🎤</span>
+                        <div class="pulse-ring"></div>
+                    </button>
+                </div>
+                <div id="listening-indicator" class="listening-indicator hidden">
+                    <span class="pulse-dot"></span>
+                    Listening...
+                    <span class="pulse-dot"></span>
+                </div>
+                <div id="transcript-container" class="transcript-container hidden">
+                    <div class="transcript-header">
+                        <h3>Transcribed Text</h3>
+                        <span class="confidence">Confidence: 95%</span>
+                    </div>
+                    <p id="transcript" class="transcript">Your spoken words will appear here...</p>
+                    <p id="detected-lang" class="detected-lang"></p>
+                </div>
+            </section>
+
+            <section id="action-buttons" class="action-section hidden">
+                <button class="action-button primary" onclick="translateText()">
+                    <span class="button-icon">⚡</span> Translate Now
+                </button>
+                <button class="action-button secondary" onclick="resetAll()">
+                    <span class="button-icon">🔄</span> Reset
+                </button>
+            </section>
+
+            <section id="translation-result" class="card hidden">
+                <h2>Translation Result</h2>
+                <div class="text-block">
+                    <div class="text-header">
+                        <h4>Original Text</h4>
+                        <div class="text-actions">
+                            <button class="icon-button" onclick="speakText('original')">🔊</button>
+                            <button class="icon-button" onclick="copyText('original')">📋</button>
+                        </div>
+                    </div>
+                    <p id="original-text" class="text-content original"></p>
+                    <p id="original-lang" class="language-label"></p>
+                </div>
+                <div class="text-block">
+                    <div class="text-header">
+                        <h4>Translated Text</h4>
+                        <div class="text-actions">
+                            <button class="icon-button" onclick="speakText('translated')">🔊</button>
+                            <button class="icon-button" onclick="copyText('translated')">📋</button>
+                        </div>
+                    </div>
+                    <p id="translated-text" class="text-content translated"></p>
+                    <p id="translated-lang" class="language-label"></p>
+                </div>
+                <p id="timestamp" class="timestamp"></p>
+            </section>
+
+            <section id="loading-section" class="card hidden">
+                <div class="loading-content">
+                    <div class="spinner"></div>
+                    <p>Translating your text...</p>
+                </div>
+            </section>
+
+            <section class="instructions card">
+                <h3>How to Use Voice Translator</h3>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h4>Choose Your Language</h4>
+                        <p>Speak in English or Telugu</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h4>Start Speaking</h4>
+                        <p>Click the microphone and speak clearly</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h4>Get Translation</h4>
+                        <p>Receive instant translation with audio playback</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="notice card">
+                <h3>Production Mode</h3>
+                <p>Connected to Google Translate API and MongoDB Atlas for full translation capabilities.</p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Voice Translator - Breaking language barriers with technology</p>
+            <p class="footer-note">Supports Chrome, Edge, and Safari browsers</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
