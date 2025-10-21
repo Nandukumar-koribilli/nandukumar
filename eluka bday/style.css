@@ -302,6 +302,20 @@ footer {
   animation: in 500ms 5s ease-out forwards;
 }
 
+@media (max-width: 768px) {
+  .velas {
+    top: 160px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .velas {
+    top: 120px;
+    height: 25px;
+  }
+}
+
 .velas:after,
 .velas:before {
   background: rgba(255, 0, 0, 0.4);
